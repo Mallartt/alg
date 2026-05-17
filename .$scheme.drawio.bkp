@@ -1,0 +1,131 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Страница — 1" id="A2gWn4z5ytwOewz93AQp">
+    <mxGraphModel dx="1503" dy="949" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-1" target="M_12x-7zZHfT2VrR-e2r-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-1" value="Начало" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="30" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-2" target="M_12x-7zZHfT2VrR-e2r-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-2" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;Инициализация камеры и загрузка весов нейросети&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-3" target="M_12x-7zZHfT2VrR-e2r-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-3" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;Получение нового кадра&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="210" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="145" y="380" />
+              <mxPoint x="145" y="210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-12" value="Нет" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="M_12x-7zZHfT2VrR-e2r-11">
+          <mxGeometry x="-0.4368" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-4" target="M_12x-7zZHfT2VrR-e2r-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-14" value="Да" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="M_12x-7zZHfT2VrR-e2r-13">
+          <mxGeometry x="-0.2976" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-4" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;Лицо найдено?&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="165" y="340" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-5" target="M_12x-7zZHfT2VrR-e2r-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-5" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;Извлечение 3D-координат точек лба и подбородка&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="470" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-6" target="M_12x-7zZHfT2VrR-e2r-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-6" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;Вычисление угла наклона головы&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-7" target="M_12x-7zZHfT2VrR-e2r-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-7" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;Применение математического фильтра сглаживания&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-17" target="M_12x-7zZHfT2VrR-e2r-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-17" target="M_12x-7zZHfT2VrR-e2r-22">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="230" y="880" />
+              <mxPoint x="240" y="880" />
+              <mxPoint x="240" y="920" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-17" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;Угол &amp;lt; Порога засыпания?&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="165" y="760" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;startFill=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="900" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="390" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-19" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;Увеличить счетчик кивков&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="820" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-22" target="M_12x-7zZHfT2VrR-e2r-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-22" target="M_12x-7zZHfT2VrR-e2r-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-22" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;Угол &amp;lt; Порога засыпания?&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="920" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;endArrow=none;startFill=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-23">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="1090" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="365" y="1090" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-23" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;Вывод &quot;ЗАСЫПАЕТ!&quot;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="335" y="980" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;endArrow=none;startFill=0;" edge="1" parent="1" source="M_12x-7zZHfT2VrR-e2r-26">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="220" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="80" y="1090" />
+              <mxPoint x="30" y="1090" />
+              <mxPoint x="30" y="210" />
+              <mxPoint x="230" y="210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="M_12x-7zZHfT2VrR-e2r-26" value="&lt;span class=&quot;router-outlet-wrapper ng-tns-c3872533921-0&quot;&gt;&quot;Бодрствует&quot;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="990" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
