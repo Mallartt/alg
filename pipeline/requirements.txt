@@ -1,0 +1,25 @@
+# --- core CV ---
+opencv-contrib-python>=4.10
+numpy>=1.26
+pillow>=10.0
+
+# --- detection + tracking ---
+ultralytics>=8.2,<8.5
+torch>=2.2
+
+# --- VLM (local llama.cpp server with vision support) ---
+llama-cpp-python[vision]>=0.3.0
+openai>=1.20.0
+
+# --- barcodes / QR ---
+pyzbar>=0.1.9            # optional, falls back to OpenCV detectors if missing
+
+# --- HTTP service ---
+fastapi>=0.110
+uvicorn>=0.29
+python-multipart>=0.0.9
+
+# --- I/O ---
+pandas>=2.2
+# tomllib is stdlib on 3.11+, install tomli only if you need 3.10:
+tomli>=2.0; python_version < "3.11"

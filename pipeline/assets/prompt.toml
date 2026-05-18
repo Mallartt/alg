@@ -1,0 +1,53 @@
+# Prompt schema for the local VLM (Qwen2.5-VL / similar).
+# Loaded by src/recognize/prompt.py and rendered into a single text prompt.
+
+instruction = """
+Извлеки данные с изображения ценника и верни ИСКЛЮЧИТЕЛЬНО валидный JSON, строго соответствующий схеме ниже.
+Если поле не виден или не читается — верни null. Не выдумывай данные.
+
+Правила для цен:
+* Рубли пишутся крупно, копейки — мельче и чуть выше.
+* Если цен две, более крупная — цена по карте, мельче — основная цена.
+* Если цен три, в порядке уменьшения шрифта: цена по акции / по карте / основная.
+* Если на ценнике одна цена — она считается ценой по карте.
+"""
+
+[fields.product_name]
+type = "string"
+description = "Полное название товара с брендом и весом/объёмом"
+
+[fields.price_default]
+type = "float"
+description = "Основная цена (без карты)"
+
+[fields.price_card]
+type = "float"
+description = "Цена по карте лояльности"
+
+[fields.price_discount]
+type = "float"
+description = "Акционная цена"
+
+[fields.discount_amount]
+type = "integer"
+description = "Скидка в процентах (только число, например 20)"
+
+[fields.id_sku]
+type = "string"
+description = "Артикул товара"
+
+[fields.barcode]
+type = "string"
+description = "Штрихкод (обычно 13 цифр)"
+
+[fields.additional_info]
+type = "string"
+description = "Доп. информация с ценника (категория, страна и т. п.)"
+
+[fields.print_datetime]
+type = "datetime"
+description = "Дата и время печати ценника"
+
+[fields.special_symbols]
+type = "string"
+description = "Спецсимволы рядом со скидкой (например Ш)"

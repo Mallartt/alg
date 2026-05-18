@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+.DS_Store
+
+# runtime data — never commit videos / job CSVs
+runtime/uploads/*
+runtime/outputs/*
+runtime/tmp/*
+!runtime/.gitkeep
+!runtime/**/.gitkeep
+
+# input media should never end up in git
+*.mp4
+*.mov
+*.avi
+
+# huge LLM weights are downloaded by the user (see README)
+models/*.gguf
+models/*.bin
+
+# but we DO want our trained YOLO weights to ship with the repo
+!models/best.pt

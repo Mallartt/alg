@@ -1,0 +1,80 @@
+# =================================================================
+#  Price-tag pipeline configuration
+#  Все пути даны относительно корня проекта (там, где лежит config.toml).
+# =================================================================
+
+[paths]
+# Веса детектора YOLOv8 (наша дообученная модель).
+# Лежит прямо в проекте, чтобы пайплайн был самодостаточным.
+weights         = "models/best.pt"
+# Промпт для VLM.
+prompt          = "assets/prompt.toml"
+# Справочник product_name по barcode из db_hack.csv.
+product_catalog = "../db_hack.csv"
+
+# =================================================================
+#  Video sampling
+# =================================================================
+[stream]
+frames_per_second = 1.5    # 1..2 кадра в секунду — экономим CPU
+rotation_deg      = 90     # повернуть кроп влево на 90°
+margin_px         = 12     # запас на bbox
+start_offset_sec  = 0.0
+
+# =================================================================
+#  YOLOv8 + ByteTrack
+# =================================================================
+[detector]
+confidence    = 0.5
+iou           = 0.45
+imgsz         = 640
+device        = ""           # "" → cuda if available, else cpu
+tracker_yaml  = "bytetrack.yaml"
+
+# =================================================================
+#  Crop preprocessing + filters
+# =================================================================
+[recognize]
+blur_threshold     = 8.0
+color_threshold    = 0.2
+upscale_factor     = 2.0
+deskew             = true
+enhance            = true
+catalog_max_rows   = 0       # 0 = читать весь db_hack.csv целиком
+
+# =================================================================
+#  Local VLM (llama.cpp server)
+# =================================================================
+[vlm]
+base_url     = "http://localhost:8000/v1"
+model_alias  = "local-model"
+temperature  = 0.05
+timeout_sec  = 90.0
+
+# =================================================================
+#  Per-track logic
+# =================================================================
+[tracking]
+min_attempts         = 1     # минимум 1 OCR на трек (как просили)
+max_attempts         = 3     # не более 3 OCR на трек
+stale_after_frames   = 30
+center_improve_eps   = 0.04  # насколько надо «улучшить» центрирование, чтобы заменить best_crop
+quorum               = 2     # сколько одинаковых ответов нужно для статуса "stable"
+
+# =================================================================
+#  Lens distortion correction (вендорные коэффициенты камеры)
+# =================================================================
+[lens]
+enabled         = false       # включай, если кадры заметно «бочат»
+image_size      = [3840, 2160]
+diagonal_mm     = 5.714       # 16.0 / 2.8 ≈ vidicon
+focal_length_mm = 2.8
+distortion      = [-0.276, 0.06, 0.0084, -0.0016, -0.0044]
+
+# =================================================================
+#  Runtime dirs used by the HTTP server
+# =================================================================
+[runtime]
+uploads_dir = "runtime/uploads"
+outputs_dir = "runtime/outputs"
+tmp_dir     = "runtime/tmp"
