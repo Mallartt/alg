@@ -25,8 +25,8 @@ pip install -r requirements.txt
 |---------------------------------------|------------------------------------------------------------------------------|--------|
 | `best.pt` (YOLOv8, наша дообученная модель) | `pipeline/models/best.pt`. В конфиге `[paths] weights = "models/best.pt"`. | **уже лежит здесь** |
 | `db_hack.csv` (справочник)            | На уровень выше `pipeline/`, то есть в корне репозитория. В конфиге `[paths] product_catalog = "../db_hack.csv"`. Файл не коммитим в git (большой), его надо положить вручную. | хранится локально |
-| GGUF-веса VLM, напр. `Qwen2.5-VL-7B-Instruct-Q5_K_M.gguf` | `pipeline/models/`                                          | скачать с HuggingFace |
-| `mmproj-*.gguf` (vision-проектор)     | `pipeline/models/`                                                           | скачать с HuggingFace (парный файл к GGUF) |
+| GGUF-веса VLM, напр. `Qwen2.5-VL-7B-Instruct-q5_k_m.gguf` (~5.5 GB) | `pipeline/models/`                                          | скачать с HuggingFace (см. §2.1) |
+| `mmproj-*.gguf` (vision-проектор, ~1.35 GB) | `pipeline/models/`                                                  | скачать с HuggingFace, парный файл к GGUF |
 | `bytetrack.yaml`                      | ничего не трогать                                                            | идёт внутри `ultralytics` |
 
 > `pipeline/models/best.pt` уже на месте — пайплайн самодостаточен с точки зрения детектора.
@@ -46,42 +46,99 @@ pip install -r requirements.txt
 
 #### Откуда скачать GGUF для VLM
 
-Идём на HuggingFace и качаем **квантованную мультимодальную** модель в формате GGUF, у которой есть пара «основные веса + mmproj-проектор». Рабочие варианты:
+Нужно **два файла**: основные веса + парный `mmproj-…gguf` (vision-проектор; без него модель не сможет смотреть на картинку).
 
-* **Qwen2-VL 7B** — `bartowski/Qwen2-VL-7B-Instruct-GGUF` (берём, например, `Q5_K_M.gguf`) + соответствующий `mmproj-*.gguf` из того же репо.
-* **Qwen2.5-VL 7B** — `bartowski/Qwen2.5-VL-7B-Instruct-GGUF` + mmproj.
-* **ZwZ-VL** — `mradermacher/ZwZ-8B-GGUF` (если хочешь именно ту же модель, что у нас в исходниках; рядом в репо есть `mmproj`).
+Два проверенных репозитория на HuggingFace:
 
-Качай через `huggingface-cli`:
+* **`Mungert/Qwen2.5-VL-7B-Instruct-GGUF`** — рекомендую: имена файлов чистые, без префиксов.
+* **`bartowski/Qwen_Qwen2.5-VL-7B-Instruct-GGUF`** — у него в имени файла продублирован префикс `Qwen_`.
 
+Сначала ставим CLI:
 ```bash
 pip install -U "huggingface_hub[cli]"
-huggingface-cli download bartowski/Qwen2.5-VL-7B-Instruct-GGUF \
-    Qwen2.5-VL-7B-Instruct-Q5_K_M.gguf \
+```
+
+**Вариант 1 (Mungert, рекомендую):**
+```bash
+huggingface-cli download Mungert/Qwen2.5-VL-7B-Instruct-GGUF \
+    Qwen2.5-VL-7B-Instruct-q5_k_m.gguf \
     --local-dir pipeline/models
-huggingface-cli download bartowski/Qwen2.5-VL-7B-Instruct-GGUF \
-    mmproj-Qwen2.5-VL-7B-Instruct-Q8_0.gguf \
+
+huggingface-cli download Mungert/Qwen2.5-VL-7B-Instruct-GGUF \
+    Qwen2.5-VL-7B-Instruct-mmproj-f16.gguf \
     --local-dir pipeline/models
 ```
 
-(Имена файлов меняются в зависимости от автора квантования — смотри страницу модели на HF и качай две парные файла: «model» + «mmproj».)
+**Вариант 2 (bartowski):** обрати внимание на префикс `Qwen_` в именах:
+```bash
+huggingface-cli download bartowski/Qwen_Qwen2.5-VL-7B-Instruct-GGUF \
+    Qwen_Qwen2.5-VL-7B-Instruct-Q5_K_M.gguf \
+    --local-dir pipeline/models
+
+huggingface-cli download bartowski/Qwen_Qwen2.5-VL-7B-Instruct-GGUF \
+    mmproj-Qwen_Qwen2.5-VL-7B-Instruct-f16.gguf \
+    --local-dir pipeline/models
+```
+
+Если оперативки/VRAM мало — берёшь Q4_K_M (~4.7 GB) вместо Q5_K_M (~5.5 GB).
+
+#### Перед запуском сервера: убедись, что вижн-handler есть в твоём wheel
+
+`llama-cpp-python` с PyPI **иногда поставляется без vision-handler-ов** для Qwen2.5-VL. Проверка:
+
+```bash
+python -c "from llama_cpp.llama_chat_format import Qwen25VLChatHandler; print('vision OK')"
+```
+
+Если получаешь `ImportError`, пересобираем из исходников (один из вариантов):
+
+```bash
+# CPU (везде):
+CMAKE_ARGS="-DLLAMA_VISION=ON" pip install --upgrade --force-reinstall \
+    --no-cache-dir "llama-cpp-python[server,vision]"
+
+# macOS Apple Silicon (быстрее на Metal):
+CMAKE_ARGS="-DLLAMA_METAL=ON -DLLAMA_VISION=ON" pip install --upgrade \
+    --force-reinstall --no-cache-dir "llama-cpp-python[server,vision]"
+
+# NVIDIA CUDA:
+CMAKE_ARGS="-DGGML_CUDA=on -DLLAMA_VISION=ON" pip install --upgrade \
+    --force-reinstall --no-cache-dir "llama-cpp-python[server,vision]"
+```
 
 #### Запуск llama.cpp сервера локально
 
-После того как GGUF лежит в `pipeline/models/`, поднимаем сервер **в отдельном терминале** (он работает независимо от пайплайна):
+Поднимаем сервер **в отдельном терминале** (он работает независимо от пайплайна). Команды отличаются по тому, у какого автора качал файлы.
 
+**Если качал у Mungert:**
 ```bash
 cd pipeline
+source .venv/bin/activate
+
 python -m llama_cpp.server \
-    --model        models/Qwen2.5-VL-7B-Instruct-Q5_K_M.gguf \
-    --clip_model_path models/mmproj-Qwen2.5-VL-7B-Instruct-Q8_0.gguf \
-    --chat_format  qwen2.5-vl \
-    --n_ctx        4096 \
-    --host         0.0.0.0 \
-    --port         8000
+    --model            models/Qwen2.5-VL-7B-Instruct-q5_k_m.gguf \
+    --clip_model_path  models/Qwen2.5-VL-7B-Instruct-mmproj-f16.gguf \
+    --chat_format      qwen2.5-vl \
+    --n_ctx            4096 \
+    --host             0.0.0.0 \
+    --port             8000
 ```
 
-* `--chat_format` подбирается под модель: для Qwen2-VL → `qwen2-vl`, для Qwen2.5-VL → `qwen2.5-vl`. См. поддерживаемые форматы в `llama_cpp/llama_chat_format.py`.
+**Если качал у bartowski:**
+```bash
+cd pipeline
+source .venv/bin/activate
+
+python -m llama_cpp.server \
+    --model            models/Qwen_Qwen2.5-VL-7B-Instruct-Q5_K_M.gguf \
+    --clip_model_path  models/mmproj-Qwen_Qwen2.5-VL-7B-Instruct-f16.gguf \
+    --chat_format      qwen2.5-vl \
+    --n_ctx            4096 \
+    --host             0.0.0.0 \
+    --port             8000
+```
+
+* `--chat_format` подбирается под модель: для Qwen2-VL → `qwen2-vl`, для Qwen2.5-VL → `qwen2.5-vl`. Список поддерживаемых форматов смотри в `llama_cpp/llama_chat_format.py`.
 * Порт `8000` совпадает с `[vlm] base_url = "http://localhost:8000/v1"` в `config.toml`. Если меняешь порт — поправь и конфиг.
 
 #### Про детектор YOLOv8 (`best.pt`)

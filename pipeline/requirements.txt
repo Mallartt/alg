@@ -8,7 +8,13 @@ ultralytics>=8.2,<8.5
 torch>=2.2
 
 # --- VLM (local llama.cpp server with vision support) ---
-llama-cpp-python[vision]>=0.3.0
+# `server` extras pull in FastAPI + uvicorn used by `python -m llama_cpp.server`
+# `vision` extras enable image input for Qwen-VL / LLaVA / etc.
+# If the prebuilt wheel ships without Qwen2.5-VL vision handlers (you can check
+# with `python -c "from llama_cpp.llama_chat_format import Qwen25VLChatHandler"`),
+# rebuild from source: `CMAKE_ARGS="-DLLAMA_VISION=ON" pip install --upgrade \
+#     --force-reinstall --no-cache-dir "llama-cpp-python[server,vision]"`.
+llama-cpp-python[server,vision]>=0.3.2
 openai>=1.20.0
 
 # --- barcodes / QR ---
